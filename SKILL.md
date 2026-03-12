@@ -1,5 +1,5 @@
 ---
-name: gemini-web-skill
+name: gemini-skill
 description: 通过 Gemini 官网（gemini.google.com）执行问答与生图操作。用户提到“问问Gemini/让Gemini回答/去Gemini问”，或出现“生图/画图/绘图/nano banana/nanobanana/生成图片”等关键词时触发。默认使用可用模型中最强档（优先 Gemini 3.1 Pro），按任务切换文本问答或图片生成流程，并把结果回传给用户。
 ---
 

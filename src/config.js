@@ -107,14 +107,13 @@ const config = {
   /**
    * CDP 远程调试端口
    *
-   * Chromium 社区通用默认值是 9222，这里用 9223（= 9222 + 1）作为 WJZ_P 的项目专属端口。
+   * 默认 40821，作为 WJZ_P 所有 skill 的统一 CDP 端口。
    * 使用独立端口的原因：
    *   1. 不信任其他浏览器实例的反爬措施，自己启动并控制的浏览器反爬最保险。
-   *   2. 避免与用户手动启动的调试浏览器或其他工具（如 OpenClaw 默认 9222）的端口冲突。
-   *
-   * 注意：9223 是 WJZ_P 所有项目统一约定的 CDP 端口，不仅限于本项目。
+   *   2. 避免与用户手动启动的调试浏览器或其他工具的端口冲突。
+   *   3. 跨 skill 共享同一个浏览器实例，多个 skill 各用各的 tab。
    */
-  browserDebugPort: envInt('BROWSER_DEBUG_PORT', 9223),
+  browserDebugPort: envInt('BROWSER_DEBUG_PORT', 40821),
 
   /** 浏览器用户数据目录（不设则自动解析，见 browser.js resolveUserDataDir） */
   browserUserDataDir: envStr('BROWSER_USER_DATA_DIR', undefined),

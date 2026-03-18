@@ -4,8 +4,8 @@
  * 两种启动方式：
  *
  * 方式 1（推荐）：先手动启动浏览器，再运行 demo
- *   chrome --remote-debugging-port=9223 --user-data-dir="~/.gemini-skill/browser-data"
- *   （也可以用 Edge：msedge --remote-debugging-port=9223 --user-data-dir=...）
+ *   chrome --remote-debugging-port=40821 --user-data-dir="~/.gemini-skill/browser-data"
+ *   （也可以用 Edge：msedge --remote-debugging-port=40821 --user-data-dir=...）
  *   node src/demo.js
  *
  * 方式 2：让 skill 自动检测并启动浏览器

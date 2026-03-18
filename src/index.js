@@ -27,7 +27,7 @@ export { disconnect, close };
  *
  * @param {object} [opts]
  * @param {string} [opts.executablePath] - 浏览器路径（env: BROWSER_PATH，不设则自动检测）
- * @param {number} [opts.port] - 调试端口（env: BROWSER_DEBUG_PORT，默认 9223）
+ * @param {number} [opts.port] - 调试端口（env: BROWSER_DEBUG_PORT，默认 40821）
  * @param {string} [opts.userDataDir] - 用户数据目录（env: BROWSER_USER_DATA_DIR）
  * @param {boolean} [opts.headless] - 无头模式（env: BROWSER_HEADLESS，默认 false）
  * @param {object} [opts.debugOpts] - 调试/信号控制选项（透传给 Puppeteer launch）

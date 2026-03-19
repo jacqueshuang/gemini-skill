@@ -42,15 +42,14 @@ server.registerTool(
           isError: true,
         };
       }
+      // 需要先处理新建会话（如果需要），因为 generateImage 内部的 newChat 会在上传之后才执行
+        if (newSession) {
+          await ops.click('newChatBtn');
+          await sleep(250);
+        }
 
       // 如果有参考图，先上传
       if (referenceImages.length > 0) {
-        // 需要先处理新建会话（如果需要），因为 generateImage 内部的 newChat 会在上传之后才执行
-        if (newSession) {
-          await ops.click('newChatBtn');
-          await sleep(500);
-        }
-
         for (const imgPath of referenceImages) {
           console.error(`[mcp] 正在上传参考图: ${imgPath}`);
           const uploadResult = await ops.uploadImage(imgPath);

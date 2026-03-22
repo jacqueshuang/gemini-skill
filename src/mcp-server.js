@@ -4,6 +4,23 @@ import { z } from "zod";
 import { writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 
+// ─── stdio 保护：拦截所有 stdout 写入，强制走 stderr ───
+// 必须放在 import 之后、业务代码之前
+// ES module 的 import 会被提升，所以用 console 重定向 + stdout.write 双保险
+const _origStdoutWrite = process.stdout.write.bind(process.stdout);
+process.stdout.write = function (chunk, encoding, callback) {
+  // 只放行 JSON-RPC 消息（以 { 开头的行），其他全部重定向到 stderr
+  const str = typeof chunk === 'string' ? chunk : chunk.toString();
+  if (str.trimStart().startsWith('{')) {
+    return _origStdoutWrite(chunk, encoding, callback);
+  }
+  return process.stderr.write(chunk, encoding, callback);
+};
+console.log = console.error;
+console.warn = console.error;
+console.info = console.error;
+console.debug = console.error;
+
 // 复用已有的统一入口，不修改原有逻辑
 import { createGeminiSession, disconnect } from './index.js';
 import config from './config.js';

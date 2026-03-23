@@ -35,11 +35,17 @@ const server = new McpServer({
 server.registerTool(
   "gemini_generate_image",
   {
-    description: "调用后台的 Gemini 浏览器会话生成高质量图片。注意：生图过程较慢（通常 60~120 秒），请耐心等待",
+    description: `调用后台的 Gemini 浏览器会话生成高质量图片。
+
+【重要：长耗时工具】
+- 本工具为同步阻塞调用，内部会等待 Gemini 生成完毕后才返回最终结果（成功/失败+文件路径）。
+- 典型耗时 60~120 秒，复杂图片可能更久。调用时 timeoutMs 务必设为 ≥120000（2分钟）。
+- 禁止在未收到本工具最终返回前结束对话或向用户报告"还在运行"。
+- 必须等到拿到最终成功/失败结果后，再向用户回传产物（文件路径）或报告错误。`,
     inputSchema: {
-      prompt: z.string().describe("图片的详细描述词"),
+      prompt: z.string().describe("图片的详细描述词。提示：描述越详细越好，包含风格、构图、色调等关键词能显著提升生成质量"),
       newSession: z.boolean().default(false).describe(
-        "是否新建会话。true= 开启全新对话; false = 复用当前已有的 Gemini 会话页"
+        "是否新建会话。true= 开启全新对话（推荐生成全新图片时使用）; false= 复用当前会话（适合基于上下文迭代修改）"
       ),
       referenceImages: z.array(z.string()).default([]).describe(
         "参考图片的本地文件路径数组，例如 [\"/path/to/ref1.png\", \"/path/to/ref2.jpg\"]。图片会在发送 prompt 前上传到 Gemini 输入框"
@@ -238,7 +244,9 @@ server.registerTool(
 server.registerTool(
   "gemini_send_message",
   {
-    description: "向 Gemini 发送文本消息并等待回答完成（不提取图片，纯文本交互）",
+    description: `向 Gemini 发送文本消息并等待回答完成（不提取图片，纯文本交互）。
+
+【长耗时工具】同步阻塞等待 Gemini 回复完毕才返回。典型耗时 10~60 秒，必须等到最终结果再回传用户。`,
     inputSchema: {
       message: z.string().describe("要发送给 Gemini 的文本内容"),
       timeout: z.number().default(120000).describe("等待回答完成的超时时间（毫秒），默认 120000"),
@@ -373,7 +381,9 @@ server.registerTool(
 server.registerTool(
   "gemini_download_full_size_image",
   {
-    description: "下载完整尺寸的图片（高清大图）。默认下载最新一张，也可通过 index 指定第几张（从0开始，从旧到新排列）",
+    description: `下载完整尺寸的图片（高清大图）。默认下载最新一张，也可通过 index 指定第几张（从0开始，从旧到新排列）。
+
+【长耗时工具】需要 hover 触发工具栏 + CDP 拦截下载，典型耗时 10~30 秒。必须等到最终结果。`,
     inputSchema: {
       index: z.number().int().min(0).optional().describe(
         "图片索引，从0开始，按从旧到新排列。不传则下载最新一张"

@@ -70,7 +70,7 @@ Generate game-style sticker images through AI conversation:
 ### Install Dependencies
 
 ```bash
-git clone https://github.com/yourname/gemini-skill.git
+git clone https://github.com/WJZ-P/gemini-skill.git
 cd gemini-skill
 npm install
 ```

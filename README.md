@@ -70,7 +70,7 @@
 ### 安装依赖
 
 ```bash
-git clone https://github.com/yourname/gemini-skill.git
+git clone https://github.com/WJZ-P/gemini-skill.git
 cd gemini-skill
 npm install
 ```

@@ -87,7 +87,7 @@ Cradling shattered dreams and the story we made."
 <!-- EXAMPLE -->
 
 <p align="center">
-  <img src="./markdown/example.png" alt="Gemini image generation example" width="400">
+  <img src="./markdown/example.png" alt="Gemini image generation example" width="100%">
 </p>
 
 <p align="center"><em>▲ Auto-generate sticker images through AI conversation</em></p>

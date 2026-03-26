@@ -87,7 +87,7 @@
 <!-- EXAMPLE -->
 
 <p align="center">
-  <img src="./markdown/example.png" alt="Gemini 生图示例" width="400">
+  <img src="./markdown/example.png" alt="Gemini 生图示例" width="100%">
 </p>
 
 <p align="center"><em>▲ 通过 AI 对话自动生成表情包</em></p>
